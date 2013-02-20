@@ -6,7 +6,7 @@ class JSIterator implements Iterator {
   private $test_files = array();
 
   public function __construct($directory, $expectFiles = TRUE) {
-    $root_dir = realpath('tests/'.$directory);
+    $root_dir = realpath($directory);
     $test_dir = $root_dir.'/test/';
     if($expectFiles) {
       $expect_dir = $root_dir.'/expect/';
@@ -60,19 +60,19 @@ class JShrinkTest extends PHPUnit_Framework_TestCase {
    * @dataProvider JShrinkProvider
    */
   public function testJShrink($unminified, $minified) {
-    require_once('src/JShrink/Minifier.php');
+    require_once('../src/JShrink/Minifier.php');
     $this->assertEquals(JShrink\Minifier::minify($unminified), $minified);
   }
 
   public function JShrinkProvider() {
     return new JSIterator('minify/jshrink');
   }
-  
+
   /**
    * @dataProvider uglifyProvider
    */
   public function testUglify($unminified, $minified) {
-    require_once('src/JShrink/Minifier.php');
+    require_once('../src/JShrink/Minifier.php');
     $this->assertEquals(JShrink\Minifier::minify($unminified), $minified);
   }
 
